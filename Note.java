@@ -19,6 +19,8 @@ public class Note {
                               LYRIC = "Lyric=",
                               TEMPO = "Tempo=",
                               NOTE_NUM = "NoteNum=",
+                              PRE_UTTERANCE = "PreUtterance=",
+                              VOICE_OVERLAP = "VoiceOverlap=",
                               VELOCITY = "Velocity=",
                               START_POINT = "StartPoint=",
                               INTENSITY = "Intensity=",
@@ -28,8 +30,7 @@ public class Note {
                               PBW = "PBW=",
                               PBY = "PBY=",
                               ENVELOPE = "Envelope=",
-                              VBR = "VBR=",
-                              NULL = "null";
+                              VBR = "VBR=";
    
    public final static DecimalFormat NUMBER = new DecimalFormat("0000"),
                                      TENTH = new DecimalFormat("0.0"),
@@ -51,6 +52,10 @@ public class Note {
    private Double tempo;
    /** The pitch of this note. */
    private Integer noteNum;
+   /** The pre-utterance of this note. */
+   private Double preUtterance;
+   /** The voice overlap of this note. */
+   private Double voiceOverlap;
    /** The velocity of this note. */
    private Double velocity;
    /** The starting point of this note. */
@@ -99,49 +104,55 @@ public class Note {
    public Note(Note copy) {
       
       setNumber(copy.getNumber());
-      if (copy.getDelta() != NULL) {
+      if (copy.getDelta() != null) {
          setDelta(copy.getDelta());
       }
-      if (copy.getDuration() != NULL) {
+      if (copy.getDuration() != null) {
          setDuration(copy.getDuration());
       }
-      if (copy.getLength() != NULL) {
+      if (copy.getLength() != null) {
          setLength(copy.getLength());
       }
-      if (copy.getLyric() != NULL) {
+      if (copy.getLyric() != null) {
          setLyric(copy.getLyric());
       }
-      if (copy.getNoteNum() != NULL) {
+      if (copy.getNoteNum() != null) {
          setNoteNum(copy.getNoteNum());
       }
-      if (copy.getVelocity() != NULL) {
+      if (copy.getPreUtterance() != null) {
+         setPreUtterance(copy.getPreUtterance());
+      }
+      if (copy.getVoiceOverlap() != null) {
+         setVoiceOverlap(copy.getVoiceOverlap());
+      }
+      if (copy.getVelocity() != null) {
          setVelocity(copy.getVelocity());
       }
-      if (copy.getStartPoint() != NULL) {
+      if (copy.getStartPoint() != null) {
          setStartPoint(copy.getStartPoint());
       }
-      if (copy.getIntensity() != NULL) {
+      if (copy.getIntensity() != null) {
          setIntensity(copy.getIntensity());
       }
-      if (copy.getModulation() != NULL) {
+      if (copy.getModulation() != null) {
          setModulation(copy.getModulation());
       }
-      if (copy.getFlags() != NULL) {
+      if (copy.getFlags() != null) {
          setFlags(copy.getFlags());
       }
-      if (copy.getPBS() != NULL) {
+      if (copy.getPBS() != null) {
          setPBS(copy.getPBS());
       }
-      if (copy.getPBW() != NULL) {
+      if (copy.getPBW() != null) {
          setPBW(copy.getPBW());
       }
-      if (copy.getPBY() != NULL) {
+      if (copy.getPBY() != null) {
          setPBY(copy.getPBY());
       }
-      if (copy.getEnvelope() != NULL) {
+      if (copy.getEnvelope() != null) {
          setEnvelope(copy.getEnvelope());
       }
-      if (copy.getVBR() != NULL) {
+      if (copy.getVBR() != null) {
          setVBR(copy.getVBR());
       }
    }
@@ -285,6 +296,64 @@ public class Note {
       
       // Remove prefix and set value
       this.noteNum = new Integer(noteNum.replaceFirst(NOTE_NUM, ""));
+   }
+   
+   // Pre-utterance
+   
+   /**
+      Sets the value of the {@link #preUtterance} field of this note.
+      @param preUtterance the preUtterance of this note.
+   */
+   public void setPreUtterance(double preUtterance) {
+      
+      this.preUtterance = new Double(preUtterance);
+   }
+   
+   /**
+      Sets the value of the {@link #preUtterance} field of this note.
+      @param preUtterance the PreUtterance parameter for this note.
+   */
+   public void setPreUtterance(String preUtterance) {
+      
+      // Remove prefix and set value
+      this.preUtterance = new Double(preUtterance.replaceFirst(PRE_UTTERANCE, ""));
+   }
+   
+   /**
+      Sets the value of the {@link #preUtterance} field of this note to null.
+   */
+   public void unsetPreUtterance() {
+      
+      preUtterance = null;
+   }
+   
+   // Voice overlap
+   
+   /**
+      Sets the value of the {@link #voiceOverlap} field of this note.
+      @param voiceOverlap the voiceOverlap of this note.
+   */
+   public void setVoiceOverlap(double voiceOverlap) {
+      
+      this.voiceOverlap = new Double(voiceOverlap);
+   }
+   
+   /**
+      Sets the value of the {@link #voiceOverlap} field of this note.
+      @param voiceOverlap the VoiceOverlap parameter for this note.
+   */
+   public void setVoiceOverlap(String voiceOverlap) {
+      
+      // Remove prefix and set value
+      this.voiceOverlap = new Double(voiceOverlap.replaceFirst(VOICE_OVERLAP, ""));
+   }
+   
+   /**
+      Sets the value of the {@link #voiceOverlap} field of this note to null.
+   */
+   public void unsetVoiceOverlap() {
+      
+      voiceOverlap = null;
    }
    
    // Velocity
@@ -537,7 +606,8 @@ public class Note {
       StringTokenizer str = new StringTokenizer(
                                    // Remove parameter prefix
                                    vbr.replaceFirst(VBR, ""),
-                                   ",");
+                                   ","),
+                        sjt = new StringTokenizer("dsoi");
       
       // Create an array list of the needed size
       this.vbr = new ArrayList<Integer>(str.countTokens());
@@ -572,7 +642,7 @@ public class Note {
          return DELTA + delta;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -587,7 +657,7 @@ public class Note {
          return DURATION + duration;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -602,7 +672,7 @@ public class Note {
          return LENGTH + length;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -617,7 +687,7 @@ public class Note {
          return LYRIC + lyric;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -632,7 +702,37 @@ public class Note {
          return NOTE_NUM + noteNum;
       }
       else {
-         return NULL;
+         return null;
+      }
+   }
+   
+   // Pre-utterance
+   
+   /**
+      @return the PreUtterance parameter for this note.
+   */
+   public String getPreUtterance() {
+      
+      if (preUtterance != null) {
+         return PRE_UTTERANCE + HUNDREDTH.format(preUtterance);
+      }
+      else {
+         return null;
+      }
+   }
+   
+   // Voice overlap
+   
+   /**
+      @return the voice overlap parameter for this note.
+   */
+   public String getVoiceOverlap() {
+      
+      if (voiceOverlap != null) {
+         return VOICE_OVERLAP + HUNDREDTH.format(voiceOverlap);
+      }
+      else {
+         return null;
       }
    }
    
@@ -647,7 +747,7 @@ public class Note {
          return VELOCITY + HUNDREDTH.format(velocity);
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -662,7 +762,7 @@ public class Note {
          return START_POINT + HUNDREDTH.format(startPoint);
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -677,7 +777,7 @@ public class Note {
          return INTENSITY + intensity;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -692,7 +792,7 @@ public class Note {
          return MODULATION + modulation;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -707,7 +807,7 @@ public class Note {
          return FLAGS + flags;
       }
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -737,7 +837,7 @@ public class Note {
       }
       
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -767,7 +867,7 @@ public class Note {
       }
       
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -797,7 +897,7 @@ public class Note {
       }
       
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -827,7 +927,7 @@ public class Note {
       }
       
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -857,7 +957,7 @@ public class Note {
       }
       
       else {
-         return NULL;
+         return null;
       }
    }
    
@@ -867,50 +967,56 @@ public class Note {
       
       String str = getNumber();
       
-      if (!getDelta().equals(NULL)) {
-         str += "\n" + getDelta();
+      if (getDelta() != null) {
+         str += "\r\n" + getDelta();
       }
-      if (!getDuration().equals(NULL)) {
-         str += "\n" + getDuration();
+      if (getDuration() != null) {
+         str += "\r\n" + getDuration();
       }
-      if (!getLength().equals(NULL)) {
-         str += "\n" + getLength();
+      if (getLength() != null) {
+         str += "\r\n" + getLength();
       }
-      if (!getLyric().equals(NULL)) {
-         str += "\n" + getLyric();
+      if (getLyric() != null) {
+         str += "\r\n" + getLyric();
       }
-      if (!getNoteNum().equals(NULL)) {
-         str += "\n" + getNoteNum();
+      if (getNoteNum() != null) {
+         str += "\r\n" + getNoteNum();
       }
-      if (!getVelocity().equals(NULL)) {
-         str += "\n" + getVelocity();
+      if (getPreUtterance() != null) {
+         str += "\r\n" + getPreUtterance();
       }
-      if (!getStartPoint().equals(NULL)) {
-         str += "\n" + getStartPoint();
+      if (getVoiceOverlap() != null) {
+         str += "\r\n" + getVoiceOverlap();
       }
-      if (!getIntensity().equals(NULL)) {
-         str += "\n" + getIntensity();
+      if (getVelocity() != null) {
+         str += "\r\n" + getVelocity();
       }
-      if (!getModulation().equals(NULL)) {
-         str += "\n" + getModulation();
+      if (getStartPoint() != null) {
+         str += "\r\n" + getStartPoint();
       }
-      if (!getFlags().equals(NULL)) {
-         str += "\n" + getFlags();
+      if (getIntensity() != null) {
+         str += "\r\n" + getIntensity();
       }
-      if (!getPBS().equals(NULL)) {
-         str += "\n" + getPBS();
+      if (getModulation() != null) {
+         str += "\r\n" + getModulation();
       }
-      if (!getPBW().equals(NULL)) {
-         str += "\n" + getPBW();
+      if (getFlags() != null) {
+         str += "\r\n" + getFlags();
       }
-      if (!getPBY().equals(NULL)) {
-         str += "\n" + getPBY();
+      if (getPBS() != null) {
+         str += "\r\n" + getPBS();
       }
-      if (!getEnvelope().equals(NULL)) {
-         str += "\n" + getEnvelope();
+      if (getPBW() != null) {
+         str += "\r\n" + getPBW();
       }
-      if (!getVBR().equals(NULL)) {
-         str += "\n" + getVBR();
+      if (getPBY() != null) {
+         str += "\r\n" + getPBY();
+      }
+      if (getEnvelope() != null) {
+         str += "\r\n" + getEnvelope();
+      }
+      if (getVBR() != null) {
+         str += "\r\n" + getVBR();
       }
       
       return str;
